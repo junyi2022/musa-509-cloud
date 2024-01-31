@@ -2,7 +2,7 @@ import geopandas as gpd
 import sqlalchemy as sqa
 
 # Load the shp into a DataFrame.
-df = gpd.read_file('data/indego_station_statuses.geojson')
+df = gpd.read_file('https://bts-status.bicycletransit.workers.dev/phl')
 
 # Load the DataFrame into the database.
 USERNAME = 'postgres'

@@ -17,7 +17,7 @@ with open('opa_properties_public.geojson', 'r', encoding='utf-8') as f:
 with open('opa_properties.jsonl', 'w') as f:
     for feature in data['features']:
         row = feature['properties']
-        if feature['geom']['coordinates']:
+        if len(feature['geom']['coordinates']) == 2:
             row['geog'] = json.dumps(feature['geometry'])
         else:
             row['geog'] = None

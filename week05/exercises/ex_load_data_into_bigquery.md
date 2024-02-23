@@ -2,10 +2,10 @@
 
 We're going to use external tables to load data into BigQuery. Note that there are [many ways](https://cloud.google.com/bigquery/docs/tables#create-table) to create tables in BigQuery, but we're going to use external tables. After you write your `CREATE EXTERNAL TABLE` statement, be sure to save it somewhere so that you can re-run it if necessary.
 
-Let's use the following datasets:
-* The OPA Properties dataset
-* The L&I Zoning permits back to 2016
-* The PWD Parcels dataset
+Let's use the following datasets (all available from [OpenDataPhilly](https://opendataphilly.org/)):
+* The _Philadelphia Properties_ from the OPA
+* The _Building and Zoning permits_ back to 2016 from L&I
+* The _Stormwater Billing Parcels_ from PWD
 
 1.  Write a script that takes the raw data and converts the PWD parcels to CSV or JSON-L (do the same for the other datasets as desired -- not as important, since you can download them as CSVs)
 2.  Upload your data to a Google Cloud Storage bucket
@@ -18,9 +18,9 @@ Let's use the following datasets:
 4.  Copy your data to native BigQuery tables
     - Create a dataset in your GCP project named `phl`
     - Copy the data from your external tables using a `CREATE TABLE AS ...` statement
-3.  Create a few maps in Carto:
-    - Find hotspots of properties that have been sold in the last 5 years
-    - Find hotspots of properties that have been rezoned within the last 3 years
-    - Find recently sold properties within a a half kilometer of a rail station
+3.  Create a few maps in Carto. Show the parcel polygons instead of just points by joining with the PWD Parcels dataset:
+    - Find hotspots of properties that have been sold in the last 5 years (see the OPA dataset)
+    - Find hotspots of properties that have been rezoned within the last 3 years (see the L&I dataset)
+    - Find recently sold properties within a a half kilometer of a rail station (you'll need to load in station info from SEPTA's GTFS dataset as well)
 
 

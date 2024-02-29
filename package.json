@@ -1,5 +1,19 @@
 {
   "dependencies": {
-    "big-json": "^3.2.0"
-  }
+    "big-json": "^3.2.0",
+    "csv": "^6.3.8",
+    "node-fetch": "^3.3.2",
+    "proj4": "^2.10.0",
+    "wkt": "^0.1.1"
+  },
+  "name": "musa-509-cloud",
+  "description": "* **Instructor(s):**\r   * Mjumbe Poe, mjumbe@design.upenn.edu\r   * Sofia Fasullo, sfasullo@design.upenn.edu\r * **Schedule:** Wednesdays, 10:15-1:15\r * **Room:** Meyerson Hall, B13\r * **Office Hours:**\r   * Mjumbe:\r     * In person Wednesdays immediately after class, first-come first-served\r     * By appointment\r   * Sofia:\r     * TBD",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }

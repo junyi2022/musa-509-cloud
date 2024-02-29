@@ -1,14 +1,16 @@
 import * as csv from 'csv-parse/sync';
 import fs from 'fs';
 import proj4 from 'proj4';
-import wellknown from 'wellknown';
+import wicket from 'wicket';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
-const __dirname = new URL('.', import.meta.url).pathname;
-const RAW_DATA_DIR = __dirname + 'raw_data/';
-const PREPARED_DATA_DIR = __dirname + 'prepared_data/';
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const RAW_DATA_DIR = __dirname + '/raw_data';
+const PREPARED_DATA_DIR = __dirname + '/prepared_data';
 
-const rawFilename = RAW_DATA_DIR + 'phl_pwd_parcels.geojson';
-const preparedFilename = PREPARED_DATA_DIR + 'phl_pwd_parcels.jsonl';
+const rawFilename = RAW_DATA_DIR + '/phl_opa_properties.csv';
+const preparedFilename = PREPARED_DATA_DIR + '/phl_opa_properties.jsonl';
 
 // Load the data from the CSV file
 const data = csv.parse(
@@ -28,11 +30,11 @@ for (const row of data) {
   if (geomWKT == 'POINT EMPTY') {
     row.geog = null;
   } else {
-    const geom = wellknown.parse(geomWKT);
+    const geom = wicket.parse(geomWKT);
     const [x, y] = proj4(srcProj, dstProj, geom.coordinates);
     row.geog = `POINT(${x} ${y})`;
   }
   f.write(JSON.stringify(row) + '\n');
 }
 
-console.log(`Processed data into ${prepared_filename}`);
+console.log(`Processed data into ${preparedFilename}`);

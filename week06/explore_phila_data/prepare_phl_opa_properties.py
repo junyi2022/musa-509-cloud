@@ -11,7 +11,7 @@ raw_filename = RAW_DATA_DIR / 'phl_opa_properties.csv'
 prepared_filename = PREPARED_DATA_DIR / 'phl_opa_properties.jsonl'
 
 # Load the data from the CSV file
-with open(raw_filename, 'r') as f:
+with open(raw_filename, 'r', encoding='utf-8') as f:
     reader = csv.DictReader(f)
     data = list(reader)
 

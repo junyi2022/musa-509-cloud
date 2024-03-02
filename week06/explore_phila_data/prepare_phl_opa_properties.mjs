@@ -1,7 +1,8 @@
 import * as csv from 'csv-parse/sync';
-import fs from 'fs';
+import * as codes from '@esri/proj-codes';
+import fs from 'fs/promises';
+import { wktToGeoJSON } from 'betterknown';
 import proj4 from 'proj4';
-import wicket from 'wicket';
 import path from 'path';
 import { fileURLToPath } from 'url';
 
@@ -14,18 +15,21 @@ const preparedFilename = PREPARED_DATA_DIR + '/phl_opa_properties.jsonl';
 
 // Load the data from the CSV file
 const data = csv.parse(
-  fs.readFileSync(rawFilename),
+  await fs.readFile(rawFilename),
   {columns: true},
 );
 
 // Set up the projection
-const srcProj = proj4.defs('EPSG:2272');
-const dstProj = proj4.defs('EPSG:4326');
+proj4.defs('EPSG:2272', codes.lookup(2272).wkt);
+proj4.defs('EPSG:4326', codes.lookup(4326).wkt);
 
 // Write the data to a JSONL file
-const f = fs.createWriteStream(preparedFilename);
+const f = await fs.open(preparedFilename, 'w');
 for (const row of data) {
-  const geomWKT = row.shape.split(';')[1];
+  const geom = wktToGeoJSON(row.shape, { proj: proj4 });
+  const [x, y] = geom.coordinates;
+  row.geog = `POINT (${x} ${y})`;
+
   delete row.shape;
   if (geomWKT == 'POINT EMPTY') {
     row.geog = null;

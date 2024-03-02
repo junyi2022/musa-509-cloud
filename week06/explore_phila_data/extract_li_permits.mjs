@@ -1,5 +1,7 @@
 import fetch from 'node-fetch';
 import fs from 'fs/promises';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
 const __dirname = new URL('.', import.meta.url).pathname; // in this way no matter where this mjs is, the directory will always be the same
 const DATA_DIR = __dirname + 'raw_data/';

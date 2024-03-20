@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "betterknown": "^1.0.3",
     "big-json": "^3.2.0",
     "csv": "^6.3.8",
     "node-fetch": "^3.3.2",

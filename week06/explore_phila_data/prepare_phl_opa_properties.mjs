@@ -1,4 +1,4 @@
-import * as csv from 'csv-parse/sync';
+import * as csv from 'csv/sync';
 import * as codes from '@esri/proj-codes';
 import fs from 'fs/promises';
 import { wktToGeoJSON } from 'betterknown';
@@ -10,8 +10,8 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const RAW_DATA_DIR = __dirname + '/raw_data';
 const PREPARED_DATA_DIR = __dirname + '/prepared_data';
 
-const rawFilename = RAW_DATA_DIR + '/phl_opa_properties.csv';
-const preparedFilename = PREPARED_DATA_DIR + '/phl_opa_properties.jsonl';
+const rawFilename = path.join(RAW_DATA_DIR, 'phl_opa_properties.csv');
+const preparedFilename = path.join(PREPARED_DATA_DIR, 'phl_opa_properties.jsonl');
 
 // Load the data from the CSV file
 const data = csv.parse(

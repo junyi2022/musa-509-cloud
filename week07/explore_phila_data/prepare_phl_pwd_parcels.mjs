@@ -1,8 +1,12 @@
+import dotenv from 'dotenv';
+dotenv.config();
+
 import BigJSON from 'big-json';
 import fs from 'fs/promises';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import BigJSON from 'big-json';
+import { Storage } from '@google-cloud/storage';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const RAW_DATA_DIR = __dirname + '/raw_data';
@@ -10,6 +14,15 @@ const PREPARED_DATA_DIR = __dirname + '/prepared_data';
 
 const rawFilename = path.join(RAW_DATA_DIR, 'phl_pwd_parcels.geojson');
 const preparedFilename = path.join(PREPARED_DATA_DIR, 'phl_pwd_parcels.jsonl');
+
+const bucketName = process.env.BUCKET_NAME;
+const storage = new Storage();
+const bucket = storageClient.bucket(bucketName);
+
+// Download the data from Google Cloud Storage
+const rawBlobName = 'raw.phl_pwd_parcels/phl_pwd_parcels.geojson';
+await bucket.file(rawBlobName).download({ destination: rawFilename });
+console.log(`Downloaded to ${rawFilename}`);
 
 // Load the data from the GeoJSON file
 const data = await BigJSON.parse({
@@ -32,3 +45,8 @@ for (const feature of data.features) {
 }
 
 console.log(`Processed data into ${preparedFilename}`);
+
+// Upload the prepared data to Google Cloud Storage
+const preparedBlobName = 'prepared.phl_pwd_parcels/phl_pwd_parcels.jsonl';
+await bucket.upload(preparedFilename, { destination: preparedBlobName });
+console.log(`Uploaded to ${preparedBlobName}`);

@@ -7,6 +7,7 @@ from google.cloud import storage
 import os
 
 DATA_DIR = pathlib.Path(__file__).parent / 'raw_data'
+DATA_DIR.mkdir(exist_ok=True, parents=True)  # Create the directory if it doesn't exist
 
 # Download the OPA Properties data as a CSV
 url = 'https://opendata.arcgis.com/datasets/84baed491de44f539889f2af178ad85c_0.geojson'

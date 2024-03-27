@@ -4,7 +4,7 @@ load_dotenv()
 import os
 from google.cloud import bigquery
 
-bucket_name = os.getenv("BUCKET_NAME")
+bucket_name = os.getenv("DATA_LAKE_BUCKET")
 dataset_name = os.getenv("DATA_LAKE_DATASET")
 
 # Load the PWD parcels data into BigQuery as an external table

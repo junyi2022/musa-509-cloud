@@ -10,6 +10,8 @@ import { Storage } from '@google-cloud/storage';
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 // const __dirname = new URL('.', import.meta.url).pathname; // not working because there is a leading slash
 const DATA_DIR = __dirname + '/raw_data';
+// create the directory if it doesn't exist
+await fs.mkdir(DATA_DIR, { recursive: true });
 
 const url = 'https://opendata.arcgis.com/datasets/84baed491de44f539889f2af178ad85c_0.geojson';
 const filename = path.join(DATA_DIR, 'phl_pwd_parcels.geojson');

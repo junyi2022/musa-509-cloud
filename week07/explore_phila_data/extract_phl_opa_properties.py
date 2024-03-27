@@ -7,6 +7,7 @@ import requests
 from google.cloud import storage
 
 DATA_DIR = pathlib.Path(__file__).parent / 'raw_data'
+DATA_DIR.mkdir(exist_ok=True, parents=True)  # Create the directory if it doesn't exist
 
 # Download the OPA Properties data as a CSV
 url = 'https://opendata-downloads.s3.amazonaws.com/opa_properties_public.csv'

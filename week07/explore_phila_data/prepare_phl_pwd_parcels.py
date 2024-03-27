@@ -7,12 +7,14 @@ from google.cloud import storage
 import os
  
 RAW_DATA_DIR = pathlib.Path(__file__).parent / 'raw_data'
+RAW_DATA_DIR.mkdir(exist_ok=True, parents=True) # Create the directory if it doesn't exist
 PREPARED_DATA_DIR = pathlib.Path(__file__).parent / 'prepared_data'
+PREPARED_DATA_DIR.mkdir(exist_ok=True, parents=True) # Create the directory if it doesn't exist
 
 raw_filename = RAW_DATA_DIR / 'phl_pwd_parcels.geojson'
 prepared_filename = PREPARED_DATA_DIR / 'phl_pwd_parcels.jsonl'
 
-bucket_name = os.getenv('BUCKET_NAME')
+bucket_name = os.getenv('DATA_LAKE_BUCKET')
 storage_client = storage.Client()
 bucket = storage_client.bucket(bucket_name)
 

@@ -3,8 +3,8 @@ env/
 *.pyc
 package-lock.json
 
-/explore_phila_data/raw_data/
-/explore_phila_data/prepared_data/
+raw_data/*
+prepared_data/*
 
 # Connection credentials
 keys/

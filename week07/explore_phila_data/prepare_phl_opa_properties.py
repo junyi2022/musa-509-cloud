@@ -10,7 +10,9 @@ from shapely import wkt
 from google.cloud import storage
 
 RAW_DATA_DIR = pathlib.Path(__file__).parent / 'raw_data'
+RAW_DATA_DIR.mkdir(exist_ok=True, parents=True)  # Create the directory if it doesn't exist
 PREPARED_DATA_DIR = pathlib.Path(__file__).parent / 'prepared_data'
+PREPARED_DATA_DIR.mkdir(exist_ok=True, parents=True)  # Create the directory if it doesn't exist
 
 raw_filename = RAW_DATA_DIR / 'phl_opa_properties.csv'
 prepared_filename = PREPARED_DATA_DIR / 'phl_opa_properties.jsonl'

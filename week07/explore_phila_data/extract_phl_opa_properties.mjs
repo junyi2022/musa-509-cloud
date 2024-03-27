@@ -9,6 +9,8 @@ import { Storage } from '@google-cloud/storage'
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const DATA_DIR = path.join(__dirname, 'raw_data/');
+// create the directory if it doesn't exist
+await fs.mkdir(DATA_DIR, { recursive: true });
 
 // Download the OPA Properties data as a CSV
 const url = 'https://opendata-downloads.s3.amazonaws.com/opa_properties_public.csv';

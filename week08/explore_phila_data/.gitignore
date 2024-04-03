@@ -5,6 +5,7 @@ package-lock.json
 
 raw_data/*
 prepared_data/*
+phl_opa_properties.csv
 
 # Connection credentials
 keys/

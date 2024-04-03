@@ -9,7 +9,7 @@ gcloud functions deploy extract_phl_opa_properties \
 --runtime=python312 \
 --source=. \
 --entry-point=extract_phl_opa_properties \
---service-account=data-pipeline-robot-2024@musa-344004.iam.gserviceaccount.com \
+--service-account=data-pipeline-robot-2024@musa-509-415020.iam.gserviceaccount.com \
 --memory=4Gi \
 --timeout=240s \
 --set-env-vars=DATA_LAKE_BUCKET=mjumbewu_musa_5090_data_lake \

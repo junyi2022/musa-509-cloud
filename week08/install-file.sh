@@ -29,12 +29,36 @@ TRIGGER_FLAGS
 
 #example
 gcloud functions deploy extract_phl_opa_properties `
-[--gen2] `
+--gen2 `
 --region=us-central1 `
 --runtime=python312 `
 --source=. `
+--project=musa-509-415020 `
 --entry-point=extract_phl_opa_properties `
---service-account=data-pipeline-robot-2024@musa-509-415020.iam.gserviceaccount.com \
---memory=1Gi `
+--service-account=data-pipeline-robot-2024@musa-509-415020.iam.gserviceaccount.com `
+--set-env-vars='DATA_LAKE_BUCKET=junyiyang_data_lake' `
+--memory=4Gi `
+--timeout=240s `
 --no-allow-unauthenticated `
 --trigger-http
+
+gcloud functions deploy prepare_phl_opa_properties `
+--gen2 `
+--region=us-central1 `
+--runtime=nodejs20 `
+--source=. `
+--project=musa-509-415020 `
+--entry-point=prepare_phl_opa_properties `
+--service-account=data-pipeline-robot-2024@musa-509-415020.iam.gserviceaccount.com `
+--set-env-vars='DATA_LAKE_BUCKET=junyiyang_data_lake' `
+--memory=8Gi `
+--timeout=480s `
+--no-allow-unauthenticated `
+--trigger-http
+
+#run cloud function in the cloud
+gcloud functions call extract_phl_opa_properties --project=musa-509-415020
+gcloud functions call prepare_phl_opa_properties --project=musa-509-415020
+#read error logs
+gcloud functions logs read extract_phl_opa_properties --project=musa-509-415020
+  # can use --limit to limit the number of logs to read

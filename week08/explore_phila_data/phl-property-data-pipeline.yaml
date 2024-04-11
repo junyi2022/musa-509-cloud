@@ -19,3 +19,19 @@ main:
             url: 'https://us-central1-musa-344004.cloudfunctions.net/run_sql?sql=data_lake/phl_opa_properties.sql'
             auth:
                 type: OIDC
+
+# the one I use
+main:
+    steps:
+    - extractPhlPropertyData:
+        call: http.post
+        args:
+            url: 'https://us-central1-musa-509-415020.cloudfunctions.net/extract_phl_opa_properties'
+            auth:
+                type: OIDC
+    - preparePhlPropertyData:
+        call: http.post
+        args:
+            url: 'https://us-central1-musa-509-415020.cloudfunctions.net/prepare_phl_opa_properties'
+            auth:
+                type: OIDC

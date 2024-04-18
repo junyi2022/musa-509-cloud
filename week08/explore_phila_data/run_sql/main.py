@@ -30,6 +30,7 @@ def run_sql(request):
                 'dataset_name': os.getenv('DATA_LAKE_DATASET'),
             }
         )
+        print(sql_query)
 
     # Run the SQL query
     bigquery_client = bigquery.Client()

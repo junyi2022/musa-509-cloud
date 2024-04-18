@@ -64,7 +64,7 @@ gcloud functions deploy run_sql `
 --project=musa-509-415020 `
 --entry-point=run_sql `
 --service-account=data-pipeline-robot-2024@musa-509-415020.iam.gserviceaccount.com `
---set-env-vars='DATA_LAKE_BUCKET=junyiyang_data_lake' `
+--set-env-vars='DATA_LAKE_BUCKET=junyiyang_data_lake,DATA_LAKE_DATASET=data_lake' `
 --memory=8Gi `
 --timeout=480s `
 --no-allow-unauthenticated `
@@ -73,8 +73,15 @@ gcloud functions deploy run_sql `
 #run cloud function in the cloud
 gcloud functions call extract_phl_opa_properties --project=musa-509-415020
 gcloud functions call prepare_phl_opa_properties --project=musa-509-415020
-gcloud functions call run_sql --project=musa-509-415020
+
 #read error logs
 gcloud functions logs read extract_phl_opa_properties --project=musa-509-415020
   # can use --limit to limit the number of logs to read
-gcloud functions logs read run_sql --project=musa-509-415020
+
+#run cloud function (with sql selection) in the cloud
+#cannot use the above method to run sql related cloud function
+Invoke-RestMethod -method POST https://us-central1-musa-509-415020.cloudfunctions.net/run_sql?sql=data_lake/phl_opa_properties.sql `
+-headers @{
+  'Authorization' = "bearer $(gcloud auth print-identity-token)"
+  'Content-Type' = "application/json"
+}

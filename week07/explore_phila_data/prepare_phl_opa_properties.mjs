@@ -16,6 +16,7 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const RAW_DATA_DIR = path.join(__dirname, 'raw_data/');
 // create the directory if it doesn't exist
 await fs.mkdir(RAW_DATA_DIR, { recursive: true });
+
 const PREPARED_DATA_DIR = path.join(__dirname, 'prepared_data/');
 // create the directory if it doesn't exist
 await fs.mkdir(PREPARED_DATA_DIR, { recursive: true });
